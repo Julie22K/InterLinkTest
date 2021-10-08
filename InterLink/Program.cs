@@ -21,8 +21,6 @@ namespace InterLink
                 bool headerfound = false;
                 while (!reader.EndOfStream)
                 {
-                    
-
                     var line = reader.ReadLine();
                     var values = line.Split(',');
                     if (headerfound) 
@@ -47,20 +45,18 @@ namespace InterLink
                             temp.Add(curdtstr, Double.Parse(values[2], CultureInfo.InvariantCulture));
                             maindata.Add(values[0], temp);
                         }                       
-
                     }
                     headerfound = true;
                 }
 
                 dates.Sort();
                 persons.Sort();
-
                 
-                StreamWriter sw = new StreamWriter(@"test.csv");
+                StreamWriter sw = new StreamWriter(@"result.csv");
 
                 string[] Dates = dates.ToArray();
-                string DT = String.Join("; ", dates);
-                sw.WriteLine($"Name/data; {DT}");
+                string DT = String.Join(", ", dates);
+                sw.WriteLine($"Name/data, {DT}");
 
                 foreach (string person in persons)
                 {
@@ -78,7 +74,7 @@ namespace InterLink
                     
                     string[] rowAr = row.ToArray();
 
-                    sw.WriteLine(String.Join("; ", rowAr));
+                    sw.WriteLine(String.Join(", ", rowAr));
 
                 }
 
